@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sprout Design System — Developer Handoff</title>
+<style>
+  :root {
+    --brand:        #186338;
+    --brand-bold:   #1e3e2b;
+    --brand-light:  #e2e9e3;
+    --cream:        #f4f1ea;
+    --cream-card:   #eae6db;
+    --grey-700:     #4d525b;
+    --grey-500:     #818898;
+    --grey-300:     #b3b8c1;
+    --grey-200:     #cdcfd6;
+    --grey-100:     #e6e7ea;
+    --error:        #d64545;
+    --success:      #5c8a5c;
+    --warning:      #d4a017;
+    --info:         #3a7ca5;
+    --white:        #ffffff;
+    --black:        #1a1a1a;
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'Inter', system-ui, sans-serif;
+    --radius-pill:  9999px;
+    --radius-lg:    12px;
+    --radius-xl:    16px;
+    --radius-2xl:   24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--grey-700);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* Google Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  /* ── Layout ─────────────────────────────── */
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── Hero ────────────────────────────────── */
+  .hero {
+    background: var(--brand-bold);
+    color: var(--white);
+    padding: 60px 48px;
+    border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
+    margin-bottom: 48px;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: var(--radius-pill);
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    font-size: 16px;
+    opacity: .75;
+    max-width: 600px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,.15);
+  }
+  .hero-meta-item { }
+  .hero-meta-item .val { font-size: 20px; font-weight: 700; }
+  .hero-meta-item .key { font-size: 11px; opacity: .6; text-transform: uppercase; letter-spacing: .5px; margin-top: 2px; }
+
+  /* ── Alert banner ────────────────────────── */
+  .alert {
+    background: #fff8e7;
+    border: 1.5px solid var(--warning);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    margin-bottom: 40px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .alert strong { color: #7f600e; }
+  .alert p { color: #7f600e; font-size: 14px; margin-top: 4px; }
+
+  /* ── Section ─────────────────────────────── */
+  .section { margin-bottom: 56px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--brand-light);
+  }
+  .section-header .num {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-pill);
+    background: var(--brand);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 500;
+  }
+
+  /* ── Cards ───────────────────────────────── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--grey-100);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    color: var(--brand);
+    margin-bottom: 16px;
+  }
+
+  /* ── Token grid ──────────────────────────── */
+  .token-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .token-swatch {
+    border: 1px solid var(--grey-100);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .swatch-color {
+    height: 56px;
+  }
+  .swatch-info {
+    padding: 10px 12px;
+    background: var(--white);
+  }
+  .swatch-name { font-size: 12px; font-weight: 600; color: var(--grey-700); }
+  .swatch-hex  { font-size: 11px; color: var(--grey-500); font-family: 'SF Mono', 'Fira Code', monospace; }
+  .swatch-token{ font-size: 10px; color: var(--grey-300); font-family: 'SF Mono', 'Fira Code', monospace; margin-top: 2px; }
+
+  /* ── Spacing ─────────────────────────────── */
+  .spacing-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--grey-100);
+  }
+  .spacing-row:last-child { border-bottom: none; }
+  .spacing-bar {
+    background: var(--brand-light);
+    border-radius: 3px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .spacing-label { font-family: monospace; font-size: 12px; min-width: 80px; color: var(--brand); font-weight: 600; }
+  .spacing-val   { font-size: 12px; color: var(--grey-500); }
+
+  /* ── Type scale ──────────────────────────── */
+  .type-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 16px;
+    align-items: baseline;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--grey-100);
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-meta { font-size: 11px; color: var(--grey-500); line-height: 1.5; }
+  .type-meta strong { color: var(--brand); font-size: 10px; text-transform: uppercase; letter-spacing: .4px; display: block; margin-bottom: 2px; }
+
+  /* ── Component spec tables ───────────────── */
+  .spec-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .spec-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--cream);
+    color: var(--grey-500);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    border-bottom: 1px solid var(--grey-100);
+  }
+  .spec-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--grey-100);
+    color: var(--grey-700);
+  }
+  .spec-table tr:last-child td { border-bottom: none; }
+  .spec-table td code {
+    background: var(--cream);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono','Fira Code',monospace;
+    font-size: 12px;
+    color: var(--brand);
+  }
+  .tag-required {
+    display: inline-block;
+    background: #fde8e8;
+    color: var(--error);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    margin-left: 4px;
+  }
+  .tag-optional {
+    display: inline-block;
+    background: var(--cream);
+    color: var(--grey-500);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+  }
+
+  /* ── Code blocks ─────────────────────────── */
+  pre {
+    background: #1a1b1e;
+    color: #e8e8e8;
+    padding: 20px 24px;
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+    font-family: 'SF Mono','Fira Code',monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-top: 16px;
+  }
+  pre .c  { color: #818898; }  /* comment */
+  pre .k  { color: #79c0ff; }  /* keyword */
+  pre .s  { color: #a5d6ff; }  /* string */
+  pre .f  { color: #d2a8ff; }  /* function */
+  pre .p  { color: #ffa657; }  /* prop */
+  pre .v  { color: #79c0ff; }  /* value/type */
+
+  /* ── Do / Don't ──────────────────────────── */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .do-box, .dont-box {
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    font-size: 13px;
+  }
+  .do-box {
+    background: #edf7f0;
+    border: 1.5px solid var(--success);
+  }
+  .dont-box {
+    background: #fdf0f0;
+    border: 1.5px solid var(--error);
+  }
+  .do-box h4   { color: var(--success); margin-bottom: 8px; }
+  .dont-box h4 { color: var(--error);   margin-bottom: 8px; }
+  .do-box ul, .dont-box ul { padding-left: 16px; }
+  .do-box li, .dont-box li { margin-bottom: 4px; }
+
+  /* ── Component preview pills ─────────────── */
+  .preview-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    padding: 20px;
+    background: var(--cream);
+    border-radius: var(--radius-lg);
+    margin-top: 16px;
+  }
+  .btn-preview {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    padding: 0 20px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: .1px;
+    font-family: var(--font-body);
+  }
+  .btn-primary   { background: var(--brand); color: #fff; box-shadow: 0 6px 20px rgba(24,99,56,.28); }
+  .btn-secondary { background: transparent; color: var(--brand); border: 1.5px solid var(--brand); }
+  .btn-tertiary  { background: transparent; color: var(--grey-700); }
+  .btn-disabled  { opacity: .45; cursor: not-allowed; }
+  .btn-sm  { height: 38px; padding: 0 16px; font-size: 13px; }
+  .btn-xs  { height: 30px; padding: 0 12px; font-size: 12px; }
+  .btn-lg  { height: 54px; padding: 0 24px; font-size: 16px; }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    min-width: 20px;
+    padding: 0 6px;
+    border-radius: 9999px;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: var(--font-body);
+  }
+  .badge-brand   { background: var(--brand);   color: #fff; }
+  .badge-error   { background: var(--error);   color: #fff; }
+  .badge-success { background: var(--success); color: #fff; }
+  .badge-warn    { background: var(--warning); color: #fff; }
+  .badge-dot     { width: 8px; height: 8px; padding: 0; min-width: 0; }
+
+  /* ── Checklist ───────────────────────────── */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--grey-100);
+    font-size: 14px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check { color: var(--brand); font-size: 16px; flex-shrink: 0; }
+
+  /* ── TOC ─────────────────────────────────── */
+  .toc {
+    background: var(--white);
+    border: 1px solid var(--grey-100);
+    border-radius: var(--radius-xl);
+    padding: 24px 28px;
+    margin-bottom: 40px;
+  }
+  .toc h3 { font-size: 14px; font-weight: 600; color: var(--grey-500); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px; }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin-bottom: 6px; }
+  .toc a  { color: var(--brand); text-decoration: none; font-size: 14px; }
+  .toc a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ HERO -->
+<div class="hero">
+  <div class="hero-tag">🌱 Sprout · Design System v1.0</div>
+  <h1>Developer Handoff</h1>
+  <p>The complete specification for every Sprout UI component. Copy exact token values. Match exact Figma variants. Ship pixel-perfect screens.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="val">5</div><div class="key">Components</div></div>
+    <div class="hero-meta-item"><div class="val">47</div><div class="key">Figma Variants</div></div>
+    <div class="hero-meta-item"><div class="val">10</div><div class="key">Spacing Steps</div></div>
+    <div class="hero-meta-item"><div class="val">8</div><div class="key">Border Radii</div></div>
+    <div class="hero-meta-item"><div class="val">15</div><div class="key">Type Styles</div></div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- Alert -->
+  <div class="alert">
+    <div class="alert-icon">⚠️</div>
+    <div>
+      <strong>NEVER hardcode pixel values or hex colours.</strong>
+      <p>Always import from <code>tokens/theme.ts</code>. If a value isn't in the token file, ask the designer — it means a token is missing, not that you should hardcode it.</p>
+    </div>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#tokens">Design Tokens</a> — colours, spacing, radius, typography, shadows</li>
+      <li><a href="#button">Button Component</a> — Type × Size × State × IconOnly</li>
+      <li><a href="#input">Input Component</a> — States, sizes, label, error, icons</li>
+      <li><a href="#navbar">NavigationBar</a> — Bottom tab bar, active pill, safe area</li>
+      <li><a href="#typography">Typography</a> — Full type scale, 15 styles</li>
+      <li><a href="#badge">Badge / Indicator</a> — Dot, Count, Label × Color × Size</li>
+      <li><a href="#rules">Design Rules</a> — Do's and don'ts</li>
+      <li><a href="#figma">Figma Links</a> — Direct links to source components</li>
+    </ol>
+  </div>
+
+  <!-- ═══════════════════════════════════════ SECTION 1: TOKENS -->
+  <div id="tokens" class="section">
+    <div class="section-header">
+      <div class="num">1</div>
+      <h2>Design Tokens</h2>
+    </div>
+    <p style="color:var(--grey-500);margin-bottom:24px">Import path: <code>import { colors, spacing, radius, typography, shadows, buttonSizes } from '@/tokens/theme'</code></p>
+
+    <!-- Brand colours -->
+    <div class="card">
+      <div class="card-title">Brand Colours</div>
+      <div class="token-grid">
+        <div class="token-swatch"><div class="swatch-color" style="background:#186338"></div><div class="swatch-info"><div class="swatch-name">Brand / 500</div><div class="swatch-hex">#186338</div><div class="swatch-token">colors.brand[500]</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#1e3e2b"></div><div class="swatch-info"><div class="swatch-name">Brand / 700</div><div class="swatch-hex">#1e3e2b</div><div class="swatch-token">colors.brand[700]</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#387f56"></div><div class="swatch-info"><div class="swatch-name">Brand / 400</div><div class="swatch-hex">#387f56</div><div class="swatch-token">colors.brand[400]</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#77b691"></div><div class="swatch-info"><div class="swatch-name">Brand / 200</div><div class="swatch-hex">#77b691</div><div class="swatch-token">colors.brand[200]</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#e2e9e3;border:1px solid #d0d0d0"></div><div class="swatch-info"><div class="swatch-name">Brand / 50</div><div class="swatch-hex">#e2e9e3</div><div class="swatch-token">colors.brand[50]</div></div></div>
+      </div>
+    </div>
+
+    <!-- Background colours -->
+    <div class="card">
+      <div class="card-title">Background / Surface</div>
+      <div class="token-grid">
+        <div class="token-swatch"><div class="swatch-color" style="background:#f4f1ea;border:1px solid #e0ddd6"></div><div class="swatch-info"><div class="swatch-name">Secondary / 500</div><div class="swatch-hex">#f4f1ea</div><div class="swatch-token">semanticColors.background.primary</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#eae6db;border:1px solid #d5d1c8"></div><div class="swatch-info"><div class="swatch-name">Secondary / 600</div><div class="swatch-hex">#eae6db</div><div class="swatch-token">semanticColors.background.hover</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#dbd5c8;border:1px solid #ccc8bc"></div><div class="swatch-info"><div class="swatch-name">Secondary / 700</div><div class="swatch-hex">#dbd5c8</div><div class="swatch-token">semanticColors.surface.l2</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#ffffff;border:1px solid #e6e6e6"></div><div class="swatch-info"><div class="swatch-name">White</div><div class="swatch-hex">#ffffff</div><div class="swatch-token">colors.neutral.white</div></div></div>
+      </div>
+    </div>
+
+    <!-- Text colours -->
+    <div class="card">
+      <div class="card-title">Text / Content</div>
+      <div class="token-grid">
+        <div class="token-swatch"><div class="swatch-color" style="background:#4d525b"></div><div class="swatch-info"><div class="swatch-name">Grey / 700</div><div class="swatch-hex">#4d525b</div><div class="swatch-token">semanticColors.content.primary</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#818898"></div><div class="swatch-info"><div class="swatch-name">Grey / 500</div><div class="swatch-hex">#818898</div><div class="swatch-token">semanticColors.content.secondary</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#b3b8c1"></div><div class="swatch-info"><div class="swatch-name">Grey / 300</div><div class="swatch-hex">#b3b8c1</div><div class="swatch-token">semanticColors.content.tertiary</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#9aa0ad"></div><div class="swatch-info"><div class="swatch-name">Grey / 400</div><div class="swatch-hex">#9aa0ad</div><div class="swatch-token">semanticColors.content.disabled</div></div></div>
+      </div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="card">
+      <div class="card-title">Feedback / Semantic</div>
+      <div class="token-grid">
+        <div class="token-swatch"><div class="swatch-color" style="background:#d64545"></div><div class="swatch-info"><div class="swatch-name">Error / 500</div><div class="swatch-hex">#d64545</div><div class="swatch-token">colors.error[500]</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#5c8a5c"></div><div class="swatch-info"><div class="swatch-name">Success / 500</div><div class="swatch-hex">#5c8a5c</div><div class="swatch-token">colors.success[500]</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#d4a017"></div><div class="swatch-info"><div class="swatch-name">Warning / 500</div><div class="swatch-hex">#d4a017</div><div class="swatch-token">colors.warning[500]</div></div></div>
+        <div class="token-swatch"><div class="swatch-color" style="background:#3a7ca5"></div><div class="swatch-info"><div class="swatch-name">Info / 500</div><div class="swatch-hex">#3a7ca5</div><div class="swatch-token">colors.info[500]</div></div></div>
+      </div>
+    </div>
+
+    <!-- Spacing -->
+    <div class="card">
+      <div class="card-title">Spacing Scale (px)</div>
+      <div>
+        <div class="spacing-row"><div class="spacing-label">spacing[4]</div><div class="spacing-bar" style="width:4px"></div><div class="spacing-val">4px — micro gap, icon padding</div></div>
+        <div class="spacing-row"><div class="spacing-label">spacing[8]</div><div class="spacing-bar" style="width:8px"></div><div class="spacing-val">8px — tight spacing, chip gap</div></div>
+        <div class="spacing-row"><div class="spacing-label">spacing[12]</div><div class="spacing-bar" style="width:12px"></div><div class="spacing-val">12px — list item gap</div></div>
+        <div class="spacing-row"><div class="spacing-label">spacing[16]</div><div class="spacing-bar" style="width:16px"></div><div class="spacing-val">16px — default padding, card inner</div></div>
+        <div class="spacing-row"><div class="spacing-label">spacing[24]</div><div class="spacing-bar" style="width:24px"></div><div class="spacing-val">24px — section inner padding</div></div>
+        <div class="spacing-row"><div class="spacing-label">spacing[32]</div><div class="spacing-bar" style="width:32px"></div><div class="spacing-val">32px — section gap</div></div>
+        <div class="spacing-row"><div class="spacing-label">spacing[48]</div><div class="spacing-bar" style="width:48px"></div><div class="spacing-val">48px — large section gap</div></div>
+        <div class="spacing-row"><div class="spacing-label">spacing[64]</div><div class="spacing-bar" style="width:64px"></div><div class="spacing-val">64px — hero padding, screen edge</div></div>
+      </div>
+    </div>
+
+    <!-- Border Radius -->
+    <div class="card">
+      <div class="card-title">Border Radius</div>
+      <table class="spec-table">
+        <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+        <tr><td><code>radius.sm</code></td><td>4px</td><td>Small chips, tags, badges</td></tr>
+        <tr><td><code>radius.md</code></td><td>8px</td><td>Buttons XSmall, small inputs</td></tr>
+        <tr><td><code>radius.lg</code></td><td>12px</td><td>Inputs (all sizes), small cards</td></tr>
+        <tr><td><code>radius.xl</code></td><td>16px</td><td>Cards, modals, large surfaces</td></tr>
+        <tr><td><code>radius['2xl']</code></td><td>24px</td><td>Bottom sheets, hero cards</td></tr>
+        <tr><td><code>radius['3xl']</code></td><td>32px</td><td>Full-bleed cards</td></tr>
+        <tr><td><code>radius.full</code></td><td>9999px</td><td>Buttons (ALL buttons use full), avatars, dots</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ SECTION 2: BUTTON -->
+  <div id="button" class="section">
+    <div class="section-header">
+      <div class="num">2</div>
+      <h2>Button</h2>
+    </div>
+
+    <!-- Live preview -->
+    <div class="preview-row">
+      <button class="btn-preview btn-primary btn-lg">Large Primary</button>
+      <button class="btn-preview btn-primary">Medium Primary</button>
+      <button class="btn-preview btn-primary btn-sm">Small</button>
+      <button class="btn-preview btn-primary btn-xs">XSmall</button>
+      <button class="btn-preview btn-secondary">Secondary</button>
+      <button class="btn-preview btn-tertiary">Tertiary</button>
+      <button class="btn-preview btn-primary btn-disabled" disabled>Disabled</button>
+    </div>
+
+    <!-- Size tokens -->
+    <div class="card">
+      <div class="card-title">Size Tokens (buttonSizes)</div>
+      <table class="spec-table">
+        <tr><th>Size</th><th>height</th><th>paddingHorizontal</th><th>fontSize</th><th>iconSize</th></tr>
+        <tr><td><strong>Large</strong></td><td><code>54px</code></td><td><code>24px</code></td><td><code>16px</code></td><td><code>20px</code></td></tr>
+        <tr><td><strong>Medium</strong></td><td><code>46px</code></td><td><code>20px</code></td><td><code>15px</code></td><td><code>18px</code></td></tr>
+        <tr><td><strong>Small</strong></td><td><code>38px</code></td><td><code>16px</code></td><td><code>14px</code></td><td><code>16px</code></td></tr>
+        <tr><td><strong>XSmall</strong></td><td><code>30px</code></td><td><code>12px</code></td><td><code>12px</code></td><td><code>14px</code></td></tr>
+      </table>
+    </div>
+
+    <!-- Type tokens -->
+    <div class="card">
+      <div class="card-title">Type × Colour Mapping</div>
+      <table class="spec-table">
+        <tr><th>Type</th><th>Background</th><th>Text</th><th>Border</th><th>Shadow</th></tr>
+        <tr>
+          <td><strong>Primary</strong></td>
+          <td><code>brand[500] #186338</code></td>
+          <td><code>white</code></td>
+          <td>none</td>
+          <td><code>shadows.brand</code></td>
+        </tr>
+        <tr>
+          <td><strong>Secondary</strong></td>
+          <td>transparent</td>
+          <td><code>brand[500]</code></td>
+          <td><code>1.5px brand[500]</code></td>
+          <td>none</td>
+        </tr>
+        <tr>
+          <td><strong>Tertiary</strong></td>
+          <td>transparent</td>
+          <td><code>grey[700]</code></td>
+          <td>none</td>
+          <td>none</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Props -->
+    <div class="card">
+      <div class="card-title">Props Reference</div>
+      <table class="spec-table">
+        <tr><th>Prop</th><th>Type</th><th>Default</th><th>Notes</th></tr>
+        <tr><td>type<span class="tag-required">required</span></td><td><code>'Primary' | 'Secondary' | 'Tertiary'</code></td><td><code>'Primary'</code></td><td>Figma: Type variant</td></tr>
+        <tr><td>size<span class="tag-required">required</span></td><td><code>'Large' | 'Medium' | 'Small' | 'XSmall'</code></td><td><code>'Large'</code></td><td>Figma: Size variant</td></tr>
+        <tr><td>label<span class="tag-optional">optional</span></td><td><code>string</code></td><td>—</td><td>Button text. Omit when iconOnly=true</td></tr>
+        <tr><td>iconOnly<span class="tag-optional">optional</span></td><td><code>boolean</code></td><td><code>false</code></td><td>Figma: Icon Only variant. Renders square pill</td></tr>
+        <tr><td>leftIcon<span class="tag-optional">optional</span></td><td><code>ReactNode</code></td><td>—</td><td>Icon left of label, or only icon if iconOnly=true</td></tr>
+        <tr><td>rightIcon<span class="tag-optional">optional</span></td><td><code>ReactNode</code></td><td>—</td><td>Icon right of label</td></tr>
+        <tr><td>loading<span class="tag-optional">optional</span></td><td><code>boolean</code></td><td><code>false</code></td><td>Replaces label with ActivityIndicator</td></tr>
+        <tr><td>disabled<span class="tag-optional">optional</span></td><td><code>boolean</code></td><td><code>false</code></td><td>Figma: Disabled state. Reduces opacity</td></tr>
+        <tr><td>fullWidth<span class="tag-optional">optional</span></td><td><code>boolean</code></td><td><code>false</code></td><td>Stretch to 100% container width</td></tr>
+        <tr><td>onPress<span class="tag-required">required</span></td><td><code>() => void</code></td><td>—</td><td>Always provide this — never omit</td></tr>
+      </table>
+    </div>
+
+    <!-- Code example -->
+    <div class="card">
+      <div class="card-title">Code Examples</div>
+<pre><span class="c">// ✅ Correct: uses tokens, matches Figma variant exactly</span>
+<span class="k">import</span> { Button } <span class="k">from</span> <span class="s">'@/components/Button/Button'</span>;
+
+<span class="c">// Primary CTA</span>
+&lt;<span class="f">Button</span>
+  <span class="p">type</span>=<span class="s">"Primary"</span>
+  <span class="p">size</span>=<span class="s">"Large"</span>
+  <span class="p">label</span>=<span class="s">"Get Started"</span>
+  <span class="p">onPress</span>={handleStart}
+/&gt;
+
+<span class="c">// Secondary outline</span>
+&lt;<span class="f">Button</span>
+  <span class="p">type</span>=<span class="s">"Secondary"</span>
+  <span class="p">size</span>=<span class="s">"Medium"</span>
+  <span class="p">label</span>=<span class="s">"Learn More"</span>
+  <span class="p">onPress</span>={handleLearnMore}
+/&gt;
+
+<span class="c">// Loading state</span>
+&lt;<span class="f">Button</span>
+  <span class="p">type</span>=<span class="s">"Primary"</span>
+  <span class="p">size</span>=<span class="s">"Large"</span>
+  <span class="p">label</span>=<span class="s">"Saving..."</span>
+  <span class="p">loading</span>={isSaving}
+  <span class="p">onPress</span>={handleSave}
+/&gt;
+
+<span class="c">// ❌ Wrong: never do this</span>
+<span class="c">// &lt;TouchableOpacity style={{ backgroundColor: '#186338', height: 54 }}&gt;</span></pre>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ SECTION 3: INPUT -->
+  <div id="input" class="section">
+    <div class="section-header">
+      <div class="num">3</div>
+      <h2>Input</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title">State Colours</div>
+      <table class="spec-table">
+        <tr><th>State</th><th>Border colour</th><th>Background</th></tr>
+        <tr><td>Default</td><td><code>grey[200] #cdcfd6</code></td><td><code>white</code></td></tr>
+        <tr><td>Focused</td><td><code>brand[500] #186338</code></td><td><code>white</code></td></tr>
+        <tr><td>Error</td><td><code>error[500] #d64545</code></td><td><code>white</code></td></tr>
+        <tr><td>Disabled</td><td><code>grey[200]</code></td><td><code>grey[50] #fcfcfd</code></td></tr>
+        <tr><td>Filled</td><td><code>grey[200]</code></td><td><code>white</code></td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Props Reference</div>
+      <table class="spec-table">
+        <tr><th>Prop</th><th>Type</th><th>Default</th><th>Notes</th></tr>
+        <tr><td>label</td><td><code>string</code></td><td>—</td><td>Label above field (uppercase, 10–12px)</td></tr>
+        <tr><td>placeholder</td><td><code>string</code></td><td>—</td><td>Placeholder text inside field</td></tr>
+        <tr><td>size</td><td><code>'Large' | 'Medium' | 'Small'</code></td><td><code>'Large'</code></td><td>Heights: 54 / 46 / 38px</td></tr>
+        <tr><td>helperText</td><td><code>string</code></td><td>—</td><td>Shown below field in grey</td></tr>
+        <tr><td>errorText</td><td><code>string</code></td><td>—</td><td>Shown below field in red. Triggers error state automatically</td></tr>
+        <tr><td>leftIcon</td><td><code>ReactNode</code></td><td>—</td><td>Icon inside field on left</td></tr>
+        <tr><td>rightIcon</td><td><code>ReactNode</code></td><td>—</td><td>Icon inside field on right (e.g. show/hide password)</td></tr>
+        <tr><td>disabled</td><td><code>boolean</code></td><td><code>false</code></td><td>Figma: Disabled state</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Code Example</div>
+<pre>&lt;<span class="f">Input</span>
+  <span class="p">label</span>=<span class="s">"Email address"</span>
+  <span class="p">placeholder</span>=<span class="s">"james@sprout.app"</span>
+  <span class="p">size</span>=<span class="s">"Large"</span>
+  <span class="p">keyboardType</span>=<span class="s">"email-address"</span>
+  <span class="p">value</span>={email}
+  <span class="p">onChangeText</span>={setEmail}
+  <span class="p">errorText</span>={emailError}
+/&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ SECTION 4: NAVBAR -->
+  <div id="navbar" class="section">
+    <div class="section-header">
+      <div class="num">4</div>
+      <h2>NavigationBar</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Anatomy</div>
+      <table class="spec-table">
+        <tr><th>Element</th><th>Value</th><th>Token</th></tr>
+        <tr><td>Background</td><td>#ffffff</td><td><code>colors.neutral.white</code></td></tr>
+        <tr><td>Border top</td><td>1px grey[100]</td><td><code>colors.grey[100]</code></td></tr>
+        <tr><td>Active pill</td><td>3px × 40px · brand[500]</td><td><code>colors.brand[500]</code></td></tr>
+        <tr><td>Active label</td><td>10px · Inter SemiBold · brand[500]</td><td><code>semanticColors.content.brand</code></td></tr>
+        <tr><td>Inactive label</td><td>10px · Inter Regular · grey[500]</td><td><code>semanticColors.content.secondary</code></td></tr>
+        <tr><td>Bottom inset</td><td>34px on iPhone (home indicator)</td><td>Pass as <code>bottomInset={34}</code></td></tr>
+        <tr><td>Shadow</td><td>lg shadow</td><td><code>shadows.lg</code></td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Code Example</div>
+<pre>&lt;<span class="f">NavigationBar</span>
+  <span class="p">tabs</span>={[
+    { key: <span class="s">'home'</span>,     label: <span class="s">'Home'</span>,     icon: (active) =&gt; &lt;<span class="f">HomeIcon</span> active={active} /&gt; },
+    { key: <span class="s">'explore'</span>,  label: <span class="s">'Explore'</span>,  icon: (active) =&gt; &lt;<span class="f">ExploreIcon</span> active={active} /&gt; },
+    { key: <span class="s">'activity'</span>, label: <span class="s">'Activity'</span>, icon: (active) =&gt; &lt;<span class="f">ActivityIcon</span> active={active} /&gt; },
+    { key: <span class="s">'profile'</span>,  label: <span class="s">'Profile'</span>,  icon: (active) =&gt; &lt;<span class="f">ProfileIcon</span> active={active} /&gt; },
+  ]}
+  <span class="p">activeTab</span>={currentTab}
+  <span class="p">onTabPress</span>={setCurrentTab}
+  <span class="p">bottomInset</span>={insets.bottom || 34}
+/&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ SECTION 5: TYPOGRAPHY -->
+  <div id="typography" class="section">
+    <div class="section-header">
+      <div class="num">5</div>
+      <h2>Typography</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Fonts</div>
+      <table class="spec-table">
+        <tr><th>Role</th><th>Family</th><th>Weight</th><th>Used for</th></tr>
+        <tr><td>Display</td><td>PlayfairDisplay-Medium</td><td>500</td><td>All headings h1–h6</td></tr>
+        <tr><td>Body</td><td>Inter-Regular</td><td>400</td><td>Paragraphs, labels, helper text</td></tr>
+        <tr><td>Medium</td><td>Inter-Medium</td><td>500</td><td>Subheadings s1–s3, active nav labels</td></tr>
+        <tr><td>SemiBold</td><td>Inter-SemiBold</td><td>600</td><td>Button labels, c1 captions, bold UI text</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Full Type Scale</div>
+      <div>
+        <div class="type-row"><div class="type-meta"><strong>h1 · Heading</strong>30px / lh 38 · Playfair</div><div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:500">Growing Together</div></div>
+        <div class="type-row"><div class="type-meta"><strong>h2 · Heading</strong>24px / lh 32 · Playfair</div><div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:500">Your Family Journey</div></div>
+        <div class="type-row"><div class="type-meta"><strong>h3 · Heading</strong>18px / lh 26 · Playfair</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:500">Today's Activities</div></div>
+        <div class="type-row"><div class="type-meta"><strong>h4 · Heading</strong>16px / lh 24 · Playfair</div><div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:500">Milestone Log</div></div>
+        <div class="type-row"><div class="type-meta"><strong>h5 · Heading</strong>14px / lh 20 · Playfair</div><div style="font-family:'Playfair Display',serif;font-size:14px;font-weight:500">Recent Activity</div></div>
+        <div class="type-row"><div class="type-meta"><strong>h6 · Heading</strong>12px / lh 18 · Playfair</div><div style="font-family:'Playfair Display',serif;font-size:12px;font-weight:500">Section Label</div></div>
+        <div class="type-row"><div class="type-meta"><strong>p1 · Body</strong>16px / lh 24 · Inter</div><div>Sprout helps you track your children's milestones and stay connected as a family.</div></div>
+        <div class="type-row"><div class="type-meta"><strong>p2 · Body</strong>14px / lh 22 · Inter</div><div style="font-size:14px">Add your children's profiles and start logging memories that matter to you.</div></div>
+        <div class="type-row"><div class="type-meta"><strong>p3 · Body</strong>12px / lh 18 · Inter</div><div style="font-size:12px">Last updated 2 minutes ago · 3 family members active</div></div>
+        <div class="type-row"><div class="type-meta"><strong>s1 · Subhead</strong>16px · Inter Medium</div><div style="font-size:16px;font-weight:500">Section Title</div></div>
+        <div class="type-row"><div class="type-meta"><strong>s2 · Subhead</strong>14px · Inter Medium</div><div style="font-size:14px;font-weight:500">Card Title</div></div>
+        <div class="type-row"><div class="type-meta"><strong>s3 · Subhead</strong>12px · Inter Medium</div><div style="font-size:12px;font-weight:500">List Item Label</div></div>
+        <div class="type-row"><div class="type-meta"><strong>c1 · Caption</strong>10px · Inter SemiBold</div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">ACTIVE LABEL</div></div>
+        <div class="type-row"><div class="type-meta"><strong>c2 · Caption</strong>10px · Inter Medium</div><div style="font-size:10px;font-weight:500">Supporting caption</div></div>
+        <div class="type-row"><div class="type-meta"><strong>c3 · Caption</strong>10px · Inter Regular</div><div style="font-size:10px">Minor detail text</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ SECTION 6: BADGE -->
+  <div id="badge" class="section">
+    <div class="section-header">
+      <div class="num">6</div>
+      <h2>Badge / Indicator</h2>
+    </div>
+
+    <div class="preview-row">
+      <span class="badge badge-brand">3</span>
+      <span class="badge badge-brand">99+</span>
+      <span class="badge badge-error">!</span>
+      <span class="badge badge-success">✓</span>
+      <span class="badge badge-warn">2</span>
+      <span class="badge badge-brand badge-dot" style="width:8px;height:8px;padding:0;min-width:0"></span>
+      <span class="badge badge-error badge-dot" style="width:8px;height:8px;padding:0;min-width:0"></span>
+      <span class="badge badge-brand" style="height:24px;min-width:24px;font-size:11px">Active</span>
+      <span class="badge badge-success" style="height:24px;min-width:24px;font-size:11px">Complete</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Variants</div>
+      <table class="spec-table">
+        <tr><th>Variant</th><th>Description</th><th>Size range</th></tr>
+        <tr><td><strong>Dot</strong></td><td>Presence indicator — no text</td><td>6 / 8 / 12px diameter</td></tr>
+        <tr><td><strong>Count</strong></td><td>Number badge — shows count (99+ if overflow)</td><td>16 / 20 / 24px height</td></tr>
+        <tr><td><strong>Label</strong></td><td>Text tag — short status word</td><td>16 / 20 / 24px height</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Code Example</div>
+<pre><span class="c">// Notification count badge</span>
+&lt;<span class="f">Badge</span> <span class="p">variant</span>=<span class="s">"Count"</span> <span class="p">color</span>=<span class="s">"Brand"</span> <span class="p">size</span>=<span class="s">"Medium"</span> <span class="p">label</span>={unreadCount} /&gt;
+
+<span class="c">// Error dot</span>
+&lt;<span class="f">Badge</span> <span class="p">variant</span>=<span class="s">"Dot"</span> <span class="p">color</span>=<span class="s">"Error"</span> <span class="p">size</span>=<span class="s">"Small"</span> /&gt;
+
+<span class="c">// Status label</span>
+&lt;<span class="f">Badge</span> <span class="p">variant</span>=<span class="s">"Label"</span> <span class="p">color</span>=<span class="s">"Success"</span> <span class="p">size</span>=<span class="s">"Medium"</span> <span class="p">label</span>=<span class="s">"Complete"</span> /&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ SECTION 7: RULES -->
+  <div id="rules" class="section">
+    <div class="section-header">
+      <div class="num">7</div>
+      <h2>Design Rules</h2>
+    </div>
+
+    <div class="do-dont">
+      <div class="do-box">
+        <h4>✅ Always do this</h4>
+        <ul>
+          <li>Import ALL colours from <code>tokens/theme.ts</code></li>
+          <li>Import ALL spacing from <code>spacing[n]</code></li>
+          <li>Use <code>radius.full</code> for ALL buttons</li>
+          <li>Use <code>radius.lg</code> for ALL text inputs</li>
+          <li>Use <code>radius.xl</code> for cards and modals</li>
+          <li>App background = <code>colors.secondary[500]</code> (#f4f1ea cream)</li>
+          <li>Primary text = <code>semanticColors.content.primary</code></li>
+          <li>Add <code>bottomInset={34}</code> on NavigationBar for iPhone</li>
+          <li>Use <code>typography.fonts.semiBold</code> for button labels</li>
+          <li>Use PlayfairDisplay for ALL headings (h1–h6)</li>
+          <li>Match Figma variant name EXACTLY in props</li>
+        </ul>
+      </div>
+      <div class="dont-box">
+        <h4>❌ Never do this</h4>
+        <ul>
+          <li>Hardcode <code>#186338</code> anywhere — use the token</li>
+          <li>Hardcode padding like <code>padding: 16</code> — use <code>spacing[16]</code></li>
+          <li>Use <code>borderRadius: 8</code> on buttons — use <code>radius.full</code></li>
+          <li>Use system fonts (Arial, Helvetica, system-ui)</li>
+          <li>Use dark background (#1a1a1a) as app background</li>
+          <li>Write inline styles with magic numbers</li>
+          <li>Skip the label on an Input — always show it</li>
+          <li>Use opacity for disabled state directly — let the component handle it</li>
+          <li>Implement your own button from TouchableOpacity — use the Button component</li>
+          <li>Forget <code>accessibilityRole</code> on navigation items</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ SECTION 8: FIGMA LINKS -->
+  <div id="figma" class="section">
+    <div class="section-header">
+      <div class="num">8</div>
+      <h2>Figma Links</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Component Sources</div>
+      <table class="spec-table">
+        <tr><th>Component</th><th>Figma Link</th><th>Dev Mode</th></tr>
+        <tr>
+          <td>Button (all variants)</td>
+          <td><a href="https://www.figma.com/design/EhpRiGZ5eJnBb132X9zewg" target="_blank" style="color:var(--brand)">Sprout Design — Button</a></td>
+          <td>Inspect → Dev Mode → see Code Connect snippet</td>
+        </tr>
+        <tr>
+          <td>Input</td>
+          <td><a href="https://www.figma.com/design/EhpRiGZ5eJnBb132X9zewg" target="_blank" style="color:var(--brand)">Sprout Design — Input</a></td>
+          <td>Check State variant for border colour</td>
+        </tr>
+        <tr>
+          <td>NavigationBar</td>
+          <td><a href="https://www.figma.com/design/EhpRiGZ5eJnBb132X9zewg" target="_blank" style="color:var(--brand)">Sprout Design — NavigationBar</a></td>
+          <td>Note active pill top position</td>
+        </tr>
+        <tr>
+          <td>Badge / Indicator</td>
+          <td><a href="https://www.figma.com/design/EhpRiGZ5eJnBb132X9zewg" target="_blank" style="color:var(--brand)">Sprout Design — Badge</a></td>
+          <td>Dot / Count / Label variants</td>
+        </tr>
+        <tr>
+          <td>Typography styles</td>
+          <td><a href="https://www.figma.com/design/EhpRiGZ5eJnBb132X9zewg" target="_blank" style="color:var(--brand)">Sprout Design — Text Styles</a></td>
+          <td>Local styles panel</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Dev checklist -->
+    <div class="card">
+      <div class="card-title">Implementation Checklist</div>
+      <ul class="checklist">
+        <li><span class="check">□</span> Installed Playfair Display and Inter fonts in your React Native project</li>
+        <li><span class="check">□</span> Imported <code>tokens/theme.ts</code> — never hardcode values</li>
+        <li><span class="check">□</span> Ran <code>yarn storybook</code> — all 5 components render in the browser</li>
+        <li><span class="check">□</span> Button Primary / Secondary / Tertiary all match Figma at all 4 sizes</li>
+        <li><span class="check">□</span> Input default / focused / error states match Figma border colours</li>
+        <li><span class="check">□</span> NavigationBar active pill is 3px × 40px positioned -12px from top</li>
+        <li><span class="check">□</span> App background is #f4f1ea (cream) — NOT white, NOT grey</li>
+        <li><span class="check">□</span> Headings use Playfair Display — NOT Inter, NOT system font</li>
+        <li><span class="check">□</span> All button label fonts are Inter-SemiBold (weight 600)</li>
+        <li><span class="check">□</span> Ran <code>npx figma connect publish</code> — Code Connect active in Figma Dev Mode</li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
