@@ -25,6 +25,15 @@ const meta: Meta<typeof Button> = {
   component: Button,
   tags: ['autodocs'],
 
+  // 👇 Replace this URL with your actual Figma component URL
+  // How to get it: In Figma, right-click your Button component → "Copy link to selection"
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/EhpRiGZ5eJnBb132X9zewg/Sprout-Design--Prod-?node-id=11-179',
+    },
+  },
+
   argTypes: {
     type: {
       control: 'select',
